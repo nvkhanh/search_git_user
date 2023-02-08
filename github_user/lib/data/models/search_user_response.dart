@@ -1,6 +1,8 @@
 
 import 'dart:convert';
 
+import 'package:github_user/domain/user_entity.dart';
+
 SearchUserResponse searchUserResponseFromJson(String str) => SearchUserResponse.fromJson(json.decode(str));
 
 class SearchUserResponse {
@@ -44,6 +46,13 @@ class User {
   int followings;
   String name;
 
+  UserEntity toEntity() {
+    return UserEntity(
+        login: login, id: id, avatarUrl: avatarUrl, score: score,
+        publicRepos: publicRepos, publicGits: publicGits,
+        followers: followers, followings: followings,
+        name: name);
+  }
   factory User.fromJson(Map<String, dynamic> json) => User(
     login: json["login"],
     id: json["id"],

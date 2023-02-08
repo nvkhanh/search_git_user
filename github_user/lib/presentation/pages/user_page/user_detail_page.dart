@@ -1,7 +1,8 @@
 
 import 'package:github_user/configs/constants.dart';
 import 'package:github_user/data/models/search_user_response.dart';
-import 'package:github_user/data/repositories/search_repository.dart';
+import 'package:github_user/domain/user_case.dart';
+import 'package:github_user/domain/user_entity.dart';
 import 'package:github_user/helper/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -10,21 +11,21 @@ import 'package:github_user/presentation/bloc/search_bloc.dart';
 
 
 class UserDetailPage extends StatelessWidget {
-  final User user;
-  final SearchRepository provider;
-  const UserDetailPage(this.user, this.provider, {super.key});
+  final UserEntity user;
+  final SearchUserUseCase _searchUserUseCase;
+  const UserDetailPage(this.user, this._searchUserUseCase, {super.key});
 
   @override
   Widget build(context) {
     return BlocProvider(
-      create: (context) => SearchUserBloc(provider)..add(SearchUserDetailEvent(user.login)),
+      create: (context) => SearchUserBloc(_searchUserUseCase)..add(SearchUserDetailEvent(user.login)),
       child: UserDetailView(user),
     );
   }
 }
 
 class UserDetailView extends StatelessWidget {
-  final User user;
+  final UserEntity user;
   const UserDetailView(this.user, {super.key});
 
   @override

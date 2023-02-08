@@ -1,9 +1,10 @@
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:github_user/domain/user_case.dart';
+import 'package:github_user/domain/user_entity.dart';
 
 import '../../data/models/search_user_response.dart';
-import '../../data/repositories/search_repository.dart';
 
 abstract class SearchUserEvent {}
 
@@ -24,8 +25,8 @@ class SearchUserInitial extends SearchUserState {}
 class SearchUserLoadInProgress extends SearchUserState {}
 class SearchUserLoadFailure extends SearchUserState {}
 class SearchUserLoadSuccess extends SearchUserState {
-  SearchUserLoadSuccess(this.user);
-  final List<User> user;
+  SearchUserLoadSuccess(this.userList);
+  final List<UserEntity> userList;
 }
 class SearchUserDetailSuccess extends SearchUserState {
   final User user;
@@ -34,8 +35,9 @@ class SearchUserDetailSuccess extends SearchUserState {
 
 
 class SearchUserBloc extends Bloc<SearchUserEvent, SearchUserState> {
-  final SearchRepository repository;
-  SearchUserBloc(this.repository) : super(SearchUserInitial()) {
+  // final SearchRepositoryImpl repository;
+  final SearchUserUseCase _searchUserUseCase;
+  SearchUserBloc(this._searchUserUseCase) : super(SearchUserInitial()) {
     on<SearchUserRequested>((event, emit) => onSearchUserRequested(event, emit));
     on<SearchUserClearText>((event, emit) => emit(SearchUserInitial()));
     on<SearchUserDetailEvent>((event, emit) => onSearchUserDetailSuccess(event, emit));
@@ -44,20 +46,20 @@ class SearchUserBloc extends Bloc<SearchUserEvent, SearchUserState> {
   void onSearchUserRequested(SearchUserRequested event, Emitter<SearchUserState> emit) async {
     emit(SearchUserLoadInProgress());
     try {
-      final response = await repository.searchUser(event.text);
-      emit(SearchUserLoadSuccess(response.items));
+      final response = await _searchUserUseCase.execute(event.text);
+      emit(SearchUserLoadSuccess(response));
     } catch (_) {
       emit(SearchUserLoadFailure());
     }
   }
   void onSearchUserDetailSuccess(SearchUserDetailEvent event, Emitter<SearchUserState> emit) async {
     emit(SearchUserLoadInProgress());
-    try {
-      final response = await repository.getUserProfile(event.username);
-      emit(SearchUserDetailSuccess(response));
-    } catch (_) {
-      emit(SearchUserLoadFailure());
-    }
+    // try {
+    //   final response = await repository.getUserProfile(event.username);
+    //   emit(SearchUserDetailSuccess(response));
+    // } catch (_) {
+    //   emit(SearchUserLoadFailure());
+    // }
   }
 
 }

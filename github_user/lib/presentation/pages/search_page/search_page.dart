@@ -2,32 +2,33 @@
 import 'dart:async';
 import 'package:github_user/configs/constants.dart';
 import 'package:github_user/data/models/search_user_response.dart';
+import 'package:github_user/data/repositories/search_repository_impl.dart';
+import 'package:github_user/domain/user_case.dart';
+import 'package:github_user/domain/user_entity.dart';
 import 'package:github_user/helper/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 
-import '../../../data/repositories/search_repository.dart';
 import '../../bloc/search_bloc.dart';
 import '../user_page/user_detail_page.dart';
 class SearchPage extends StatelessWidget {
-  final apiRepository = SearchRepository(http.Client());
-
+  final useCase = SearchUserUseCase(SearchRepositoryImpl(http.Client()));
   SearchPage({super.key});
 
   @override
   Widget build(context) {
     return BlocProvider(
-      create: (context) => SearchUserBloc(apiRepository),
-      child: SearchView(apiRepository),
+      create: (context) => SearchUserBloc(useCase),
+      child: SearchView(useCase),
     );
   }
 }
 
 class SearchView extends StatelessWidget {
 
-  final SearchRepository apiProvider;
+  final SearchUserUseCase apiProvider;
   SearchView(this.apiProvider, {super.key});
 
   final TextEditingController searchController = TextEditingController();
@@ -72,7 +73,7 @@ class SearchView extends StatelessWidget {
                   if (state is SearchUserLoadInProgress) {
                     return buildLoadingWidget();
                   }else if (state is SearchUserLoadSuccess) {
-                    return state.user.isNotEmpty ? buildUserList(context, state.user) : buildEmptyWidget();
+                    return state.userList.isNotEmpty ? buildUserList(context, state.userList) : buildEmptyWidget();
                   }else if (state is SearchUserInitial) {
                     return Container(
                       margin: EdgeInsets.fromLTRB(0, Style.padding20, 0, 0),
@@ -129,13 +130,13 @@ class SearchView extends StatelessWidget {
           physics: const AlwaysScrollableScrollPhysics(),
           padding: const EdgeInsets.all(0.0),
           itemBuilder: (BuildContext context, int index) {
-            var item = items[index] as User;
+            var item = items[index] as UserEntity;
             return buildUserItem(context, item);
           }
       ),
     );
   }
-  buildUserItem(BuildContext context, User item) {
+  buildUserItem(BuildContext context, UserEntity item) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
