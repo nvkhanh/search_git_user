@@ -29,7 +29,7 @@ class SearchUserLoadSuccess extends SearchUserState {
   final List<UserEntity> userList;
 }
 class SearchUserDetailSuccess extends SearchUserState {
-  final User user;
+  final UserEntity user;
   SearchUserDetailSuccess(this.user);
 }
 
@@ -54,12 +54,12 @@ class SearchUserBloc extends Bloc<SearchUserEvent, SearchUserState> {
   }
   void onSearchUserDetailSuccess(SearchUserDetailEvent event, Emitter<SearchUserState> emit) async {
     emit(SearchUserLoadInProgress());
-    // try {
-    //   final response = await repository.getUserProfile(event.username);
-    //   emit(SearchUserDetailSuccess(response));
-    // } catch (_) {
-    //   emit(SearchUserLoadFailure());
-    // }
+    try {
+      final response = await _searchUserUseCase.findProfile(event.username);
+      emit(SearchUserDetailSuccess(response));
+    } catch (_) {
+      emit(SearchUserLoadFailure());
+    }
   }
 
 }

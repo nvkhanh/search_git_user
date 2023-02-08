@@ -22,11 +22,11 @@ class SearchRepositoryImpl implements SearchRepository {
   //     throw Exception('An error occurred while connecting to server');
   //   }
   // }
-  Future<User> getUserProfile(String username) async {
+  Future<UserEntity> getUserProfile(String username) async {
     var apiFullPath = "${Constants.baseURL}users/$username";
     final http.Response response = await client.get(Uri.parse(apiFullPath));
     if (response.statusCode == 200) {
-      return User.fromJson(jsonDecode(response.body));
+      return User.fromJson(jsonDecode(response.body)).toEntity();
     } else {
       throw Exception('An error occurred while connecting to server');
     }
