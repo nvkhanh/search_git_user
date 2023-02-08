@@ -1,15 +1,16 @@
 
 import 'dart:async';
-import 'package:github_user/bloc/search_bloc.dart';
 import 'package:github_user/configs/constants.dart';
-import 'package:github_user/models/search_user_response.dart';
-import 'package:github_user/pages/user_page/user_detail_page.dart';
-import 'package:github_user/repositories/search_repository.dart';
-import 'package:github_user/utils/utils.dart';
+import 'package:github_user/data/models/search_user_response.dart';
+import 'package:github_user/helper/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
+
+import '../../../data/repositories/search_repository.dart';
+import '../../bloc/search_bloc.dart';
+import '../user_page/user_detail_page.dart';
 class SearchPage extends StatelessWidget {
   final apiRepository = SearchRepository(http.Client());
 

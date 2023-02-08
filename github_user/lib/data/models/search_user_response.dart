@@ -55,6 +55,4 @@ class User {
     followings: json["following"] ?? 0,
     name: json["name"] ?? "",
   );
-
-
 }

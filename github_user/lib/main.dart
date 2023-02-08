@@ -1,7 +1,6 @@
-import 'package:github_user/pages/search_page/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:github_user/pages/search_page/search_page.dart';
+import 'package:github_user/presentation/pages/search_page/search_page.dart';
 
 void main() async {
   runApp(const MyApp());

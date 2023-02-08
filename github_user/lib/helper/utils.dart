@@ -20,14 +20,13 @@ class Utils {
                   child: Center(
                     child: SvgPicture.asset(
                       'assets/arrow-back.svg',
-                      color: Colors.white,
                     ),
                   )))
               : Container(),
           Expanded(
               child: Text(
                 title,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 16, fontWeight: FontWeight.w700, color: Colors.white),
                 textAlign: TextAlign.center,
               )),
@@ -54,7 +53,7 @@ class Utils {
             actions: <Widget>[
               ElevatedButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: Text('OK'))
+                  child: const Text('OK'))
             ],
           );
         });

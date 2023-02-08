@@ -1,8 +1,9 @@
-import 'package:github_user/models/search_user_response.dart';
-import 'package:github_user/repositories/search_repository.dart';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../data/models/search_user_response.dart';
+import '../../data/repositories/search_repository.dart';
 
 abstract class SearchUserEvent {}
 

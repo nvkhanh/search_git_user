@@ -1,12 +1,13 @@
 
-import 'package:github_user/bloc/search_bloc.dart';
 import 'package:github_user/configs/constants.dart';
-import 'package:github_user/models/search_user_response.dart';
-import 'package:github_user/repositories/search_repository.dart';
-import 'package:github_user/utils/utils.dart';
+import 'package:github_user/data/models/search_user_response.dart';
+import 'package:github_user/data/repositories/search_repository.dart';
+import 'package:github_user/helper/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:github_user/presentation/bloc/search_bloc.dart';
+
 
 class UserDetailPage extends StatelessWidget {
   final User user;
@@ -16,7 +17,7 @@ class UserDetailPage extends StatelessWidget {
   @override
   Widget build(context) {
     return BlocProvider(
-      create: (context) => SearchUserBloc(this.provider)..add(SearchUserDetailEvent(user.login)),
+      create: (context) => SearchUserBloc(provider)..add(SearchUserDetailEvent(user.login)),
       child: UserDetailView(user),
     );
   }
@@ -24,7 +25,7 @@ class UserDetailPage extends StatelessWidget {
 
 class UserDetailView extends StatelessWidget {
   final User user;
-  const UserDetailView(this.user);
+  const UserDetailView(this.user, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +39,7 @@ class UserDetailView extends StatelessWidget {
             ClipOval(
               child: CachedNetworkImage(imageUrl: user.avatarUrl,fit: BoxFit.cover, width: 200,height: 200,),
             ),
-            SizedBox(height: 40,),
+            const SizedBox(height: 40,),
             buildRow("User name", user.login),
             BlocConsumer<SearchUserBloc, SearchUserState>(
               listener: (context, state) {
@@ -57,9 +58,9 @@ class UserDetailView extends StatelessWidget {
                   );
                 }else if (state is SearchUserLoadInProgress) {
                   return Container(
-                    margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                    padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                    child: CircularProgressIndicator(
+                    margin: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                    child: const CircularProgressIndicator(
                       color: Colors.green,
                     ),
                   );
@@ -77,15 +78,15 @@ class UserDetailView extends StatelessWidget {
   Widget buildRow(String leftContent, String rightContent) {
     if (rightContent.isNotEmpty) {
       return Container(
-        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Text(leftContent, style: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w300)),
+            Text(leftContent, style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w300)),
             Expanded(
               child: Text(rightContent,
-                style: TextStyle(
+                style: const TextStyle(
                     color: Colors.black,
                     fontSize: 14,
                     fontWeight: FontWeight.w700),
