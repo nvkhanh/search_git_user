@@ -13,15 +13,6 @@ class SearchRepositoryImpl implements SearchRepository {
 
 
 
-  // Future<SearchUserResponse> searchUser(String searchText) async {
-  //   var apiFullPath = "${Constants.baseURL}search/users?q=$searchText";
-  //   final http.Response response = await client.get(Uri.parse(apiFullPath));
-  //   if (response.statusCode == 200) {
-  //     return SearchUserResponse.fromJson(jsonDecode(response.body));
-  //   } else {
-  //     throw Exception('An error occurred while connecting to server');
-  //   }
-  // }
   Future<UserEntity> getUserProfile(String username) async {
     var apiFullPath = "${Constants.baseURL}users/$username";
     final http.Response response = await client.get(Uri.parse(apiFullPath));

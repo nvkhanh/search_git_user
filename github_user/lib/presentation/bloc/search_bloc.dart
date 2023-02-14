@@ -1,7 +1,8 @@
 
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:github_user/domain/user_case.dart';
+import 'package:github_user/domain/use_case.dart';
 import 'package:github_user/domain/user_entity.dart';
 
 import '../../data/models/search_user_response.dart';
@@ -20,19 +21,39 @@ class SearchUserDetailEvent extends SearchUserEvent {
 }
 
 
-abstract class SearchUserState {}
-class SearchUserInitial extends SearchUserState {}
-class SearchUserLoadInProgress extends SearchUserState {}
-class SearchUserLoadFailure extends SearchUserState {}
+abstract class SearchUserState extends Equatable {
+
+}
+
+class SearchUserInitial extends SearchUserState {
+  @override
+  List<Object?> get props => [];
+
+}
+class SearchUserLoadInProgress extends SearchUserState {
+  @override
+  List<Object?> get props => [];
+}
+class SearchUserLoadFailure extends SearchUserState {
+  @override
+  List<Object?> get props => [];
+}
 class SearchUserLoadSuccess extends SearchUserState {
   SearchUserLoadSuccess(this.userList);
   final List<UserEntity> userList;
+  @override
+  List<Object?> get props => [
+    userList,
+  ];
 }
 class SearchUserDetailSuccess extends SearchUserState {
   final UserEntity user;
   SearchUserDetailSuccess(this.user);
+  @override
+  List<Object?> get props => [
+    user
+  ];
 }
-
 
 class SearchUserBloc extends Bloc<SearchUserEvent, SearchUserState> {
   // final SearchRepositoryImpl repository;
