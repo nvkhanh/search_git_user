@@ -1,6 +1,6 @@
 
-import 'package:github_user/domain/repositories.dart';
-import 'package:github_user/domain/user_entity.dart';
+import 'package:github_user/domain/repositories/repositories.dart';
+import 'package:github_user/domain/entities/user_entity.dart';
 
 class SearchUserUseCase {
   final SearchRepository repository;

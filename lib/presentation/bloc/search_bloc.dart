@@ -2,8 +2,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:github_user/domain/use_case.dart';
-import 'package:github_user/domain/user_entity.dart';
+import 'package:github_user/domain/usecases/use_case.dart';
+import 'package:github_user/domain/entities/user_entity.dart';
 
 import '../../data/models/search_user_response.dart';
 

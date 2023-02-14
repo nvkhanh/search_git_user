@@ -1,8 +1,8 @@
 
 import 'package:github_user/configs/constants.dart';
 import 'package:github_user/data/models/search_user_response.dart';
-import 'package:github_user/domain/use_case.dart';
-import 'package:github_user/domain/user_entity.dart';
+import 'package:github_user/domain/usecases/use_case.dart';
+import 'package:github_user/domain/entities/user_entity.dart';
 import 'package:github_user/helper/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';

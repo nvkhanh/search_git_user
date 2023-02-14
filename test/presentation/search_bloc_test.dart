@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:github_user/data/models/search_user_response.dart';
 import 'package:github_user/data/repositories/search_repository_impl.dart';
-import 'package:github_user/domain/use_case.dart';
+import 'package:github_user/domain/usecases/use_case.dart';
 import 'package:github_user/presentation/bloc/search_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';

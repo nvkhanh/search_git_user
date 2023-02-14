@@ -1,5 +1,5 @@
 
-import 'package:github_user/domain/user_entity.dart';
+import 'package:github_user/domain/entities/user_entity.dart';
 
 
 abstract class SearchRepository {
